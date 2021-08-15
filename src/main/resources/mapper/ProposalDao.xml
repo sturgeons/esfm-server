@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zf.zf_server.modules.proposal.dao.ProposalDao">
+
+    <resultMap type="com.zf.zf_server.modules.proposal.entity.Proposal" id="ProposalMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="staffId" column="staff_id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="issues" column="issues" jdbcType="VARCHAR"/>
+        <result property="idea" column="idea" jdbcType="VARCHAR"/>
+        <result property="proposeTime" column="propose_time" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="category" column="category" jdbcType="VARCHAR"/>
+        <result property="adoptFlag" column="adopt_flag" jdbcType="VARCHAR"/>
+        <result property="completeFlag" column="complete_flag" jdbcType="VARCHAR"/>
+        <result property="evaluationScore" column="evaluation_score" jdbcType="INTEGER"/>
+        <result property="evaluationLevel" column="evaluation_level" jdbcType="INTEGER"/>
+        <result property="currentProcessNo" column="current_process_no" jdbcType="VARCHAR"/>
+        <result property="dept" column="dept" jdbcType="VARCHAR"/>
+        <result property="staffName" column="staff_name" jdbcType="VARCHAR"/>
+        <result property="workflowId" column="workflow_id" jdbcType="VARCHAR"/>
+        <result property="cisCategory" column="cis_category" jdbcType="VARCHAR"/>
+        <result property="sortBy" column="sort_by" jdbcType="INTEGER"/>
+        <result property="preProcessNo" column="pre_process_no" jdbcType="VARCHAR"/>
+    </resultMap>
+    <update id="updateDynamicData" parameterType="map">
+        update ${maps.table} set
+        <foreach collection="maps.entrySet()" item="value" index="key" separator=",">
+            <if test="key!='table' and key!='id'">
+                ${key}=#{value}
+            </if>
+        </foreach>
+        where id = #{maps.id}
+    </update>
+    <select id="selectParam" resultType="java.lang.String">
+        select ${conditionExp}
+        from proposal
+        where id = #{proposalId}
+    </select>
+</mapper>

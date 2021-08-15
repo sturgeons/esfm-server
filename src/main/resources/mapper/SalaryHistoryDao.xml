@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zf.zf_server.modules.salary.dao.SalaryHistoryDao">
+
+
+    <select id="selectAllHistory" resultType="com.zf.zf_server.modules.salary.entity.SalaryHistory">
+        SELECT *
+        from salary_history
+        WHERE work_code = #{workCode}
+          AND name = #{name}
+          AND show_enable = '1'
+        ORDER BY year-0 desc , month-0 desc
+    </select>
+</mapper>

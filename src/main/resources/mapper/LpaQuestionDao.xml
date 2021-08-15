@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zf.zf_server.modules.lpa.dao.LpaQuestionDao">
+    <resultMap type="com.zf.zf_server.modules.lpa.entity.LpaQuestion" id="LpaQuestionMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="scheduleId" column="schedule_id" jdbcType="VARCHAR"/>
+        <result property="question" column="question" jdbcType="VARCHAR"/>
+        <result property="statue" column="statue" jdbcType="INTEGER"/>
+        <result property="checklistId" column="checklist_id" jdbcType="VARCHAR"/>
+        <result property="checklistItemId" column="checklist_item_id" jdbcType="VARCHAR"/>
+        <result property="commit" column="commit" jdbcType="VARCHAR"/>
+        <result property="owner" column="owner" jdbcType="VARCHAR"/>
+        <result property="dueDate" column="due_date" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="detail" resultType="com.zf.zf_server.modules.lpa.entity.vo.LpaQuestionDetailVo">
+        SELECT lq.schedule_id,
+               lq.question,
+               lq.id,
+               ls.auditor_name,
+               ls.area_name,
+               ls.check_name,
+               ls.plan_date,
+               ls.finish_date,
+               lci.checklist,
+               lq.checklist_item_id,
+               lci.sort_id,
+               lci.checklist_id
+        FROM lpa_question lq
+                 LEFT JOIN lpa_schedule ls ON lq.schedule_id = ls.id
+                 LEFT JOIN lpa_checklist_item lci on lq.checklist_item_id = lci.id
+        order by ls.finish_date desc
+    </select>
+    <select id="exportDetail" resultType="com.zf.zf_server.modules.lpa.entity.vo.LpaQuestionDetailVo">
+        SELECT
+            lq.schedule_id,lq.question,ls.auditor_name,ls.area_name,ls.check_name,ls.plan_date,ls.finish_date,lci.checklist,lq.checklist_item_id,lci.sort_id
+        FROM
+            lpa_question lq
+                LEFT JOIN lpa_schedule ls ON lq.schedule_id = ls.id
+                LEFT JOIN lpa_checklist_item lci on lq.checklist_item_id=lci.id
+    </select>
+</mapper>
