@@ -50,7 +50,7 @@ public class PortalController extends ApiController {
             YaoSay.p("访问admin电脑端");
             return;
         }
-        response.sendRedirect("/p/index.html?v="+v);
+        response.sendRedirect("/p/mobile.html?v="+v);
         YaoSay.p("访问index手机端");
     }
 

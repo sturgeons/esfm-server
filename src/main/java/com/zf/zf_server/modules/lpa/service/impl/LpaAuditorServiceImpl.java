@@ -38,4 +38,9 @@ public class LpaAuditorServiceImpl extends ServiceImpl<LpaAuditorDao, LpaAuditor
         }
         return R.failed(ResponseInfoConstant.OPERATE_FAIL);
     }
+
+    @Override
+    public R<?> performance() {
+        return R.ok(this.baseMapper.performance());
+    }
 }

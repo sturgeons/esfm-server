@@ -22,4 +22,7 @@ public interface SysUserService extends IService<SysUser> {
     R<?> getMenus(String token, String terminal);
 
     R<?> register(SysUser sysUser);
+
+
+    R<?> changePassword(String oldPassword, String newPassword, String header);
 }

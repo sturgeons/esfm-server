@@ -2,6 +2,7 @@ package com.zf.zf_server.modules.lpa.service.impl;
 
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -107,17 +108,20 @@ public class LpaScheduleServiceImpl extends ServiceImpl<LpaScheduleDao, LpaSched
 
     @Override
     public R<?> close(LpaSchedule lpaSchedule) {
-        lpaSchedule.setStatus(1);
-        lpaSchedule.setFinishDate(DateTime.now());
-        int res = this.baseMapper.updateById(lpaSchedule);
-        return res > 0 ? R.ok(lpaSchedule) : R.failed(ResponseInfoConstant.OPERATE_FAIL);
+        return finishLpaSchedule(lpaSchedule);
     }
 
     @Override
     public R<?> noProduction(LpaSchedule lpaSchedule) {
+        lpaSchedule.setCommit("无生产");
+        return finishLpaSchedule(lpaSchedule);
+    }
+
+    private R<?> finishLpaSchedule(LpaSchedule lpaSchedule) {
         lpaSchedule.setStatus(1);
         lpaSchedule.setFinishDate(DateTime.now());
-        lpaSchedule.setCommit("无生产");
+        var sourceLpaSchedule=this.baseMapper.selectById(lpaSchedule.getId());
+        lpaSchedule.setSpendDays((int) DateUtil.between(sourceLpaSchedule.getPlanDate(),DateTime.now(), DateUnit.DAY));
         int res = this.baseMapper.updateById(lpaSchedule);
         return res > 0 ? R.ok(lpaSchedule) : R.failed(ResponseInfoConstant.OPERATE_FAIL);
     }

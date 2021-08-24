@@ -16,4 +16,5 @@ public interface ResponseInfoConstant {
     String NOT_LPA_AUDITOR = "你不是审核员";
     String STRING_IS_BLANK = "必要的字符串为空！";
     String HAVE_SAME_ITEM = "已经存在重复的数值。";
+    String NOT_SAME_OLD_PASSWORD = "与旧密码不相同。";
 }

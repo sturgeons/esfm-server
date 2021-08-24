@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,11 +41,11 @@ public class SysUserController extends ApiController {
     /**
      * 分页查询所有数据
      *
-     * @param page 分页对象
+     * @param page    分页对象
      * @param sysUser 查询实体
      * @return 所有数据
      */
-    @GetMapping(value="list")
+    @GetMapping(value = "list")
     public R<?> selectAll(Page<SysUser> page, SysUser sysUser) {
         return success(this.sysUserService.page(page, new QueryWrapper<>(sysUser)));
     }
@@ -66,7 +67,7 @@ public class SysUserController extends ApiController {
      * @param sysUser 实体对象
      * @return 新增结果
      */
-    @PostMapping(value="insert")
+    @PostMapping(value = "insert")
     public R<?> insert(@RequestBody SysUser sysUser) {
         return success(this.sysUserService.save(sysUser));
     }
@@ -77,7 +78,7 @@ public class SysUserController extends ApiController {
      * @param sysUser 实体对象
      * @return 修改结果
      */
-    @PutMapping(value="update")
+    @PutMapping(value = "update")
     public R<?> update(@RequestBody SysUser sysUser) {
         return success(this.sysUserService.updateById(sysUser));
     }
@@ -88,34 +89,37 @@ public class SysUserController extends ApiController {
      * @param idList 主键结合
      * @return 删除结果
      */
-    @DeleteMapping(value="delete")
+    @DeleteMapping(value = "delete")
     public R<?> delete(@RequestParam("idList") List<String> idList) {
         return success(this.sysUserService.removeByIds(idList));
     }
 
-     /**
+    /**
      * 导出excel
-     * @param request 请求
+     *
+     * @param request  请求
      * @param response 反馈
      */
     @GetMapping(value = "exportXls")
     public ModelAndView exportXls(HttpServletRequest request, HttpServletResponse response) {
-        List<SysUser> res=sysUserService.list();
-        var exportXls= new ExportXls<SysUser>("sysUser"+ DateTime.now().toString("yyMMddHHmmss"),"demo","yaoxin");
-        return exportXls.export(res,SysUser.class);
+        List<SysUser> res = sysUserService.list();
+        var exportXls = new ExportXls<SysUser>("sysUser" + DateTime.now().toString("yyMMddHHmmss"), "demo", "yaoxin");
+        return exportXls.export(res, SysUser.class);
     }
 
-     /**
+    /**
      * 通过excel导入数据
-     * @param request 请求
+     *
+     * @param request  请求
      * @param response 反馈
      * @return R 结果
      */
     @RequestMapping(value = "importExcel", method = RequestMethod.POST)
     public R<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
-        ImportExcel<SysUser> importExcel=new ImportExcel<>();
-        return importExcel.importData(request,SysUser.class,sysUserService);
+        ImportExcel<SysUser> importExcel = new ImportExcel<>();
+        return importExcel.importData(request, SysUser.class, sysUserService);
     }
+
     /**
      * 通过主键获取角色列表
      *
@@ -133,16 +137,17 @@ public class SysUserController extends ApiController {
      * @param userRolesObj 实体对象
      * @return 新增结果
      */
-    @PostMapping(value="updateRoles")
+    @PostMapping(value = "updateRoles")
     public R<?> insert(@RequestBody List<Map<String, String>> userRolesObj) {
         return this.sysUserService.updateRoles(userRolesObj);
     }
+
     /**
      * 通过主键获取角色列表
      */
     @GetMapping("getMenus")
     public R<?> getMenus(@RequestParam(name = "terminal") String terminal, HttpServletRequest request) {
-        return this.sysUserService.getMenus( request.getHeader(CommConstant.REQUEST_TOKEN),terminal);
+        return this.sysUserService.getMenus(request.getHeader(CommConstant.REQUEST_TOKEN), terminal);
     }
 
     /**
@@ -151,13 +156,24 @@ public class SysUserController extends ApiController {
      * @param sysUser 实体对象
      * @return 注册
      */
-    @PostMapping(value="register")
+    @PostMapping(value = "register")
     public R<?> register(@RequestBody SysUser sysUser) {
-            if (sysUser!=null){
-                return this.sysUserService.register(sysUser);
-            }else {
-                return R.failed(ResponseInfoConstant.OPERATE_FAIL);
-            }
+        if (sysUser != null) {
+            return this.sysUserService.register(sysUser);
+        } else {
+            return R.failed(ResponseInfoConstant.OPERATE_FAIL);
+        }
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param request 实体对象
+     * @return 注册
+     */
+    @PostMapping(value = "changePassword")
+    public R<?> changePassword(@RequestBody HashMap<String, String> map, HttpServletRequest request) {
+        return this.sysUserService.changePassword(map.get("oldPassword"), map.get("newPassword"), request.getHeader(CommConstant.REQUEST_TOKEN));
     }
 
 }

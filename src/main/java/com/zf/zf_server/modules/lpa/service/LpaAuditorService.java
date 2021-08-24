@@ -12,4 +12,6 @@ import com.zf.zf_server.modules.lpa.entity.LpaAuditor;
 public interface LpaAuditorService extends IService<LpaAuditor> {
 
     R<?> add(LpaAuditor lpaAuditor);
+
+    R<?> performance();
 }

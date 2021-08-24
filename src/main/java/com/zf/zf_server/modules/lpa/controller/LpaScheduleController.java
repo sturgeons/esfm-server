@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * 分层审核-审核计划(LpaSchedule)表控制层
+ *
  * @author yaoxin
  * @since 2020-07-30 11:30:11
  */
@@ -35,6 +36,7 @@ public class LpaScheduleController extends ApiController {
 
     /**
      * 分页查询所有数据
+     *
      * @param page        分页对象
      * @param lpaSchedule 查询实体
      * @return 所有数据
@@ -46,6 +48,7 @@ public class LpaScheduleController extends ApiController {
 
     /**
      * 通过主键查询单条数据
+     *
      * @param id 主键
      * @return 单条数据
      */
@@ -56,6 +59,7 @@ public class LpaScheduleController extends ApiController {
 
     /**
      * 新增数据
+     *
      * @param lpaSchedule 实体对象
      * @return 新增结果
      */
@@ -68,8 +72,10 @@ public class LpaScheduleController extends ApiController {
     public R<?> newSchedule(@RequestBody LpaSchedule lpaSchedule) {
         return this.lpaScheduleService.newSchedule(lpaSchedule);
     }
+
     /**
      * 修改数据
+     *
      * @param lpaSchedule 实体对象
      * @return 修改结果
      */
@@ -80,6 +86,7 @@ public class LpaScheduleController extends ApiController {
 
     /**
      * 删除数据
+     *
      * @param idList 主键结合
      * @return 删除结果
      */
@@ -90,6 +97,7 @@ public class LpaScheduleController extends ApiController {
 
     /**
      * 导出excel
+     *
      * @param request  请求
      * @param response 反馈
      */
@@ -102,6 +110,7 @@ public class LpaScheduleController extends ApiController {
 
     /**
      * 通过excel导入数据
+     *
      * @param request  请求
      * @param response 反馈
      * @return R 结果
@@ -113,39 +122,41 @@ public class LpaScheduleController extends ApiController {
     }
 
     @GetMapping(value = "getPlanByUser")
-    public R<?> getPlanByUser(Page<LpaSchedule> page, LpaSchedule lpaSchedule,HttpServletRequest request) {
+    public R<?> getPlanByUser(Page<LpaSchedule> page, LpaSchedule lpaSchedule, HttpServletRequest request) {
         // TODO 获取自己的审核计划
         return success(this.lpaScheduleService.page(page, new QueryWrapper<>(lpaSchedule)));
     }
+
     //重审
     @GetMapping(value = "reAudit")
-    public R<?> reAudit(@RequestParam String id){
+    public R<?> reAudit(@RequestParam String id) {
         return this.lpaScheduleService.reAudit(id);
     }
 
     //月计划
     @GetMapping(value = "month")
-    public R<?> month(@RequestParam String month){
+    public R<?> month(@RequestParam String month) {
         return this.lpaScheduleService.month(month);
     }
 
     //获取未审核计划清单
     @GetMapping(value = "getScheduleByUser")
-    public R<?> getScheduleByUser(Page<LpaSchedule> page,HttpServletRequest request,@RequestParam(value = "status")String status ){
-        return this.lpaScheduleService.getScheduleByUser(page,request.getHeader(CommConstant.REQUEST_TOKEN),status);
+    public R<?> getScheduleByUser(Page<LpaSchedule> page, HttpServletRequest request, @RequestParam(value = "status") String status) {
+        return this.lpaScheduleService.getScheduleByUser(page, request.getHeader(CommConstant.REQUEST_TOKEN), status);
     }
 
 
     //获取未审核计划清单
     @GetMapping(value = "getCloseListByUser")
-    public R<?> getCloseListByUser(Page<LpaSchedule> page,HttpServletRequest request){
-        return this.lpaScheduleService.getCloseListByUser(page,request.getHeader(CommConstant.REQUEST_TOKEN));
+    public R<?> getCloseListByUser(Page<LpaSchedule> page, HttpServletRequest request) {
+        return this.lpaScheduleService.getCloseListByUser(page, request.getHeader(CommConstant.REQUEST_TOKEN));
     }
 
     @PostMapping(value = "close")
     public R<?> close(@RequestBody LpaSchedule lpaSchedule) {
         return this.lpaScheduleService.close(lpaSchedule);
     }
+
     @PostMapping(value = "noProduction")
     public R<?> noProduction(@RequestBody LpaSchedule lpaSchedule) {
         return this.lpaScheduleService.noProduction(lpaSchedule);

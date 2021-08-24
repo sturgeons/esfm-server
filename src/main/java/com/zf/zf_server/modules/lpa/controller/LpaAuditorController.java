@@ -106,4 +106,13 @@ public class LpaAuditorController extends ApiController {
         ImportExcel<LpaAuditor> importExcel = new ImportExcel<>();
         return importExcel.importData(request, LpaAuditor.class, lpaAuditorService);
     }
+    /**
+     * 获取个人绩效
+
+     */
+    @GetMapping("performance")
+    public R<?> performance() {
+        return this.lpaAuditorService.performance();
+    }
+
 }

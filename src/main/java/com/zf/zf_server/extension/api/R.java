@@ -1,9 +1,11 @@
 package com.zf.zf_server.extension.api;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Optional;
 @SuppressWarnings("unchecked")
 public class R<T> implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private long code;
     private T data;

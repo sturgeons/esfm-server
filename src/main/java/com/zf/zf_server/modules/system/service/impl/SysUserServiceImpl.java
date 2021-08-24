@@ -37,6 +37,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     private SysMenuRoleService sysMenuRoleService;
     @Resource
     private  SysRoleService sysRoleService;
+    @Resource
+    private SysUserService sysUserService;
     @Override
     public R<?> getRoles(String id) {
         List<SysUserRole> resList = sysUserRoleService.list(new QueryWrapper<SysUserRole>().eq("user_id", id));
@@ -153,5 +155,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
             }
         }
         return R.failed(ResponseInfoConstant.OPERATE_FAIL);
+    }
+
+
+    @Override
+    public R<?> changePassword(String oldPassword, String newPassword, String token) {
+        // 获取登录用户信息
+        R<SysUser> sysUser = sysLoginInfoService.getUser(token);
+        if (!sysUser.ok()) {
+            return sysUser;
+        }
+        if (!sysUser.getData().getPassword().equals(oldPassword)){
+            return R.failed(ResponseInfoConstant.NOT_SAME_OLD_PASSWORD);
+        }
+        sysUser.getData().setPassword(newPassword);
+        var res=sysUserService.updateById(sysUser.getData());
+        return res?R.ok(sysUser.getData()):R.failed(ResponseInfoConstant.OPERATE_FAIL);
     }
 }
