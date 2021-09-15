@@ -176,4 +176,20 @@ public class SysUserController extends ApiController {
         return this.sysUserService.changePassword(map.get("oldPassword"), map.get("newPassword"), request.getHeader(CommConstant.REQUEST_TOKEN));
     }
 
+    /**
+     * 获取当前用户信息
+     **/
+    @GetMapping(value = "getUserInfo")
+    public R<?> getUserInfo(HttpServletRequest request) {
+        return this.sysUserService.getUserInfo(request.getHeader(CommConstant.REQUEST_TOKEN));
+    }
+
+    /**
+     * 检查微信是否已经注册openid
+     **/
+    @GetMapping(value = "checkWxAuth")
+    public R<?> checkWxAuth(HttpServletRequest request) {
+        return this.sysUserService.checkWxAuth(request.getHeader(CommConstant.REQUEST_TOKEN));
+    }
+
 }

@@ -17,6 +17,7 @@ server:
       - application/octet-stream
       - application/json
     min-response-size: 1024
+
 spring:
   datasource:
     #    jndi-name: jdbc/mysql
@@ -47,12 +48,11 @@ mybatis-plus:
 #微信公众号配置参数
 wx:
   mp:
-    configs:
-      - appId: wx0c51cbbf1b500f02
-        secret: 11eba444755850467112432357f5871a
-        token: 111 （接口配置里的Token值）
-        aesKey: 111 （接口配置里的EncodingAESKey值）
-obs:
-  as: 7WT5HBWUBGQ2DE9HJDLN
+    appId: wx0c51cbbf1b500f02
+    secret: 11eba444755850467112432357f5871a
+    token: 111 （接口配置里的Token值）
+    aesKey: 111 （接口配置里的EncodingAESKey值）
+huawei-auth:
+  ak: 7WT5HBWUBGQ2DE9HJDLN
   sk: pVhrcEn4V5lhJkkqcc8wpGV48Pjx2XYByXk0P9vz
   endpoint: obs.cn-south-1.myhuaweicloud.com

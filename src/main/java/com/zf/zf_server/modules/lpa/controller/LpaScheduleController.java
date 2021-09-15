@@ -123,7 +123,6 @@ public class LpaScheduleController extends ApiController {
 
     @GetMapping(value = "getPlanByUser")
     public R<?> getPlanByUser(Page<LpaSchedule> page, LpaSchedule lpaSchedule, HttpServletRequest request) {
-        // TODO 获取自己的审核计划
         return success(this.lpaScheduleService.page(page, new QueryWrapper<>(lpaSchedule)));
     }
 

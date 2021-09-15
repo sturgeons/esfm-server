@@ -40,7 +40,7 @@ mybatis-plus:
 #        secret: 11eba444755850467112432357f5871a
 #        token: 111 （接口配置里的Token值）
 #        aesKey: 111 （接口配置里的EncodingAESKey值）
-obs:
-  as: 7WT5HBWUBGQ2DE9HJDLN
+huawei-auth:
+  ak: 7WT5HBWUBGQ2DE9HJDLN
   sk: pVhrcEn4V5lhJkkqcc8wpGV48Pjx2XYByXk0P9vz
   endpoint: obs.cn-south-1.myhuaweicloud.com

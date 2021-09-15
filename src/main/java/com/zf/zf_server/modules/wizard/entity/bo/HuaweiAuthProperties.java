@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "obs")
-public class ObsProperties {
-    private String as;
+@ConfigurationProperties(prefix = "huawei-auth")
+public class HuaweiAuthProperties {
+    private String ak;
     private String sk;
     private String endpoint;
 }

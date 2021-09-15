@@ -23,6 +23,12 @@ public interface SysUserService extends IService<SysUser> {
 
     R<?> register(SysUser sysUser);
 
-
     R<?> changePassword(String oldPassword, String newPassword, String header);
+
+    //存储微信用户的token
+    R<?> saveWxOpenId(String token, String openid);
+
+    R<SysUser> getUserInfo(String token);
+
+    R<?> checkWxAuth(String token);
 }

@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "huawei-auth.as",
+      "type": "java.lang.String",
+      "description": "Description for huawei-auth.as."
+    },
+    {
+      "name": "huawei-auth.sk",
+      "type": "java.lang.String",
+      "description": "Description for huawei-auth.sk."
+    },
+    {
+      "name": "huawei-auth.endpoint",
+      "type": "java.lang.String",
+      "description": "Description for huawei-auth.endpoint."
+    },
+    {
+      "name": "wx.mp.appId",
+      "type": "java.lang.String",
+      "description": "Description for wx.mp.appId."
+    },
+    {
+      "name": "wx.mp.secret",
+      "type": "java.lang.String",
+      "description": "Description for wx.mp.secret."
+    },
+    {
+      "name": "wx.mp.token",
+      "type": "java.lang.String",
+      "description": "Description for wx.mp.token."
+    },
+    {
+      "name": "wx.mp.aesKey",
+      "type": "java.lang.String",
+      "description": "Description for wx.mp.aesKey."
+    }
+  ]
+}

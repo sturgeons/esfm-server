@@ -15,11 +15,14 @@ public class CORSConfiguration extends WebMvcConfigurationSupport {
                 .allowedHeaders("*");
         super.addCorsMappings(registry);
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        registry.addResourceHandler("/**").addResourceLocations("file:/Users/yaoxin/");
+        registry.addResourceHandler("/swagger-ui/**").addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/").resourceChain(false);
+
         registry.addResourceHandler("/p/**").addResourceLocations("file:/root/p/");
+        registry.addResourceHandler("/p/**").addResourceLocations("file:/Users/yaoxin/Documents/App/zf/zf_web/dist/");
         super.addResourceHandlers(registry);
     }
 }

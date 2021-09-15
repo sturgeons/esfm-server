@@ -31,7 +31,7 @@ public class SysLoginInfoServiceImpl extends ServiceImpl<SysLoginInfoDao, SysLog
         if (info == null) {
             return R.failed(ResponseInfoConstant.NO_LOGIN_INFO);
         }
-        var user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("id", info.getUserId()));
+        var user = sysUserService.getById(info.getUserId());
         return R.ok(user);
     }
 }

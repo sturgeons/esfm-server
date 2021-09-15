@@ -4,7 +4,7 @@ import com.obs.services.ObsClient;
 import com.obs.services.model.PutObjectResult;
 import com.zf.zf_server.extension.api.R;
 import com.zf.zf_server.modules.wizard.entity.bo.ObsBo;
-import com.zf.zf_server.modules.wizard.entity.bo.ObsProperties;
+import com.zf.zf_server.modules.wizard.entity.bo.HuaweiAuthProperties;
 import com.zf.zf_server.modules.wizard.service.ObsService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +21,19 @@ import java.io.InputStream;
 public class ObsServiceImpl implements ObsService {
 
     @Autowired
-    private ObsProperties obsProperties;
+    private HuaweiAuthProperties huaweiAuthProperties;
 
     @Override
     public R<?> upload(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
-        if (originalFilename==null){
+        if (originalFilename == null) {
             return R.failed("获取文件名错误");
         }
         String sub = originalFilename.substring(originalFilename.lastIndexOf("."));
         try {
             BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
             if (bufferedImage == null) {
-                return R.failed("文件内容不合法"+originalFilename);
+                return R.failed("文件内容不合法" + originalFilename);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,15 +47,15 @@ public class ObsServiceImpl implements ObsService {
             String objectKey = file.getOriginalFilename();
             //获取流对象
             in = file.getInputStream();
-            String md5Filename=DigestUtils.md5Hex(in)+sub;
+            String md5Filename = DigestUtils.md5Hex(in) + sub;
             in = file.getInputStream();
             // 创建ObsClient实例
-            obsClient = new ObsClient(obsProperties.getAs(), obsProperties.getSk(), obsProperties.getEndpoint());
+            obsClient = new ObsClient(huaweiAuthProperties.getAk(), huaweiAuthProperties.getSk(), huaweiAuthProperties.getEndpoint());
             // 使用访问OBS
             PutObjectResult putObjectResult = obsClient.putObject("esfm", md5Filename, in);
             //将图片信息封装起来，方便前端回显调用
             String url = putObjectResult.getObjectUrl();
-            ObsBo obsBo=new ObsBo();
+            ObsBo obsBo = new ObsBo();
             obsBo.setFilename(originalFilename);
             obsBo.setMd5Filename(objectKey);
             obsBo.setUrl(url);
