@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zf.zf_server.modules.lpa.dao.LpaAreaChecklistDao">
+<mapper namespace="com.esfm.modules.lpa.dao.LpaAreaChecklistDao">
 
-    <resultMap type="com.zf.zf_server.modules.lpa.entity.LpaAreaChecklist" id="LpaAreaChecklistMap">
+    <resultMap type="com.esfm.modules.lpa.entity.LpaAreaChecklist" id="LpaAreaChecklistMap">
         <result property="areaId" column="area_id" jdbcType="VARCHAR"/>
         <result property="checklistId" column="checklist_id" jdbcType="VARCHAR"/>
         <result property="id" column="id" jdbcType="VARCHAR"/>
     </resultMap>
-    <select id="getChecklistByAreaDetail" resultType="com.zf.zf_server.modules.lpa.entity.LpaChecklist">
+    <select id="getChecklistByAreaDetail" resultType="com.esfm.modules.lpa.entity.LpaChecklist">
         select lpa_checklist.id as id,lpa_checklist.name as name
         from lpa_area_checklist
                  left join lpa_checklist on lpa_area_checklist.checklist_id = lpa_checklist.id

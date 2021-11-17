@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zf.zf_server.modules.dictionaries.dao.DicListDao">
+<mapper namespace="com.esfm.modules.dictionaries.dao.DicListDao">
 
-    <resultMap type="com.zf.zf_server.modules.dictionaries.entity.DicList" id="DicListMap">
+    <resultMap type="com.esfm.modules.dictionaries.entity.DicList" id="DicListMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -15,7 +15,7 @@
         <result property="fieldName" column="field_name" jdbcType="VARCHAR"/>
         <result property="fieldValue" column="field_value" jdbcType="VARCHAR"/>
     </resultMap>
-    <select id="getArrayFromTable" resultType="com.zf.zf_server.modules.dictionaries.entity.vo.SelectListVo">
+    <select id="getArrayFromTable" resultType="com.esfm.modules.dictionaries.entity.vo.SelectListVo">
         select ${fieldName} as 'key',${fieldValue} as 'value' from ${tableName}
     </select>
 
