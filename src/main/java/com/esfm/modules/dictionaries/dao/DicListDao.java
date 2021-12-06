@@ -14,5 +14,5 @@ import java.util.List;
 public interface DicListDao extends BaseMapper<DicList> {
 
     // 用过表明获取键和值 的列表选项
-    List<SelectListVo> getArrayFromTable(String tableName, String fieldName, String fieldValue);
+    List<SelectListVo> getArrayFromTable(String tableName, String fieldName, String fieldValue,String conditionValue);
 }

@@ -34,7 +34,7 @@ public class SysMenu extends Model<SysMenu> {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     //更新人登录名称
-    @TableField(fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @Excel(name = "更新人登录名称", width = 20)
     private String updateBy;
     //更新日期

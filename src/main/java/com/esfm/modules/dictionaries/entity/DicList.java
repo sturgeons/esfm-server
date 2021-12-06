@@ -30,9 +30,10 @@ public class DicList extends Model<DicList> {
     @Excel(name = "创建日期", width = 20, format = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private Date createTime;
     //更新人登录名称
-    @TableField(fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @Excel(name = "更新人登录名称", width = 20)
     private String updateBy;
     //更新日期
@@ -59,7 +60,9 @@ public class DicList extends Model<DicList> {
     //列值
     @Excel(name = "列值", width = 20)
     private String fieldValue;
-
+    //条件
+    @Excel(name = "条件", width = 20)
+    private String conditionValue;
     /**
      * 获取主键值
      * @return 主键值

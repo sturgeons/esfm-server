@@ -61,7 +61,7 @@ public class DicListServiceImpl extends ServiceImpl<DicListDao, DicList> impleme
         if (dicObj.ok()) {
             var dic = (DicList) dicObj.getData();
             if (dic.getType().equals(CommConstant.DIC_TABLE_FLAG)){
-               return R.ok( getBaseMapper().getArrayFromTable(dic.getTableName(),dic.getFieldName(),dic.getFieldValue()));
+               return R.ok( getBaseMapper().getArrayFromTable(dic.getTableName(),dic.getFieldName(),dic.getFieldValue(),dic.getConditionValue()));
             }
             var dicItems = dicItemService.list(new QueryWrapper<DicItem>().eq("dic_list_id", dic.getId()).orderByAsc("option_sort"));
             List<String> res = new ArrayList<>();

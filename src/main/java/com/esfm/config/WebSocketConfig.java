@@ -2,6 +2,7 @@ package com.esfm.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -27,20 +28,19 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-//        ThreadPoolTaskScheduler te = new ThreadPoolTaskScheduler();
-//        te.setPoolSize(1);
-//        te.setThreadNamePrefix("wss-heartbeat-thread-");
-//        te.initialize();
+        ThreadPoolTaskScheduler te = new ThreadPoolTaskScheduler();
+        te.setPoolSize(1);
+        te.setThreadNamePrefix("wss-heartbeat-thread-");
+        te.initialize();
         // 代理用不到
 //        registry.enableStompBrokerRelay().setClientLogin("111").setClientPasscode("111").setRelayPort(8005);
         // 订阅Broker名称
-        registry.enableSimpleBroker("/queue", "/topic")
+        registry.enableSimpleBroker( "/topic")
         // 第一个参数表示服务器写入或发送心跳的频率。 第二个参数表示客户端发送心跳时间
-//                .setHeartbeatValue(new long[]{15000,3000})
-//                .setTaskScheduler(te)
-        ;
+                .setHeartbeatValue(new long[]{30000,30000})
+                .setTaskScheduler(te);
         // 全局使用的消息前缀（客户端订阅路径上会体现出来）
-//        registry.setApplicationDestinationPrefixes("/app");
+        registry.setApplicationDestinationPrefixes("/app");
         // 点对点使用的订阅前缀（客户端订阅路径上会体现出来），不设置的话，默认也是/user/
         // registry.setUserDestinationPrefix("/user/");
     }

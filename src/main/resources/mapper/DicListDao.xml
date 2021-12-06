@@ -16,7 +16,7 @@
         <result property="fieldValue" column="field_value" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="getArrayFromTable" resultType="com.esfm.modules.dictionaries.entity.vo.SelectListVo">
-        select ${fieldName} as 'key',${fieldValue} as 'value' from ${tableName}
+        select ${fieldName} as 'key',${fieldValue} as 'value' from ${tableName} where ${conditionValue}
     </select>
 
 </mapper>

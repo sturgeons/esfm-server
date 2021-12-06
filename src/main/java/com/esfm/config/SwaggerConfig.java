@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30) // v2 不同
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.zf.zf_server.modules")) // 设置扫描路径
+                .apis(RequestHandlerSelectors.basePackage("com.esfm.modules")) // 设置扫描路径
                 .build();
     }
 }

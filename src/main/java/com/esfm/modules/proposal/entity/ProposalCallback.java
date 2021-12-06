@@ -41,7 +41,7 @@ public class ProposalCallback extends Model<ProposalCallback> {
     private Date createTime;
 
     //更新人登录名称    
-        @TableField(fill = FieldFill.UPDATE)        
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @Excel(name="更新人登录名称",width=20 )    
         
         

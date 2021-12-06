@@ -40,7 +40,7 @@ public class ProposalProcessTree extends Model<ProposalProcessTree> {
     private Date createTime;
 
     //更新人登录名称
-    @TableField(fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @Excel(name = "更新人登录名称", width = 20)
 
     private String updateBy;

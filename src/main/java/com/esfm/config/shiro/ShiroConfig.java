@@ -38,6 +38,8 @@ public class ShiroConfig {
         shiroFilter.setFilters(filters);
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/webjars/**", "anon");
+        filterMap.put("/swagger-ui/**", "anon");
+        filterMap.put("/swagger-resources/**", "anon");
         filterMap.put("/druid/**", "anon");
 
         filterMap.put("/login.sysUser.tel", "anon");//登录
@@ -46,7 +48,10 @@ public class ShiroConfig {
         filterMap.put("/sysUser/list", "anon");//获取map
         filterMap.put("/sysUser/register", "anon");//获取map
         filterMap.put("/", "anon");//首页
-        filterMap.put("/p/**", "anon");//首页
+        filterMap.put("/p/**", "anon");//静态
+        filterMap.put("/webSocket/**", "anon");//webSocket
+        filterMap.put("/topic/**", "anon");//webSocket
+        filterMap.put("/app/**", "anon");//webSocket
 
         filterMap.put("/v3/api-docs", "anon");//api接口
 

@@ -1,16 +1,16 @@
 package com.esfm.modules.wizard.service.impl;
 
+import com.esfm.extension.api.R;
+import com.esfm.modules.wizard.entity.bo.HuaweiAuthProperties;
+import com.esfm.modules.wizard.entity.bo.ObsBo;
+import com.esfm.modules.wizard.service.ObsService;
 import com.obs.services.ObsClient;
 import com.obs.services.model.PutObjectResult;
-import com.esfm.extension.api.R;
-import com.esfm.modules.wizard.entity.bo.ObsBo;
-import com.esfm.modules.wizard.entity.bo.HuaweiAuthProperties;
-import com.esfm.modules.wizard.service.ObsService;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,11 +20,11 @@ import java.io.InputStream;
 @Service("obsService")
 public class ObsServiceImpl implements ObsService {
 
-    @Autowired
+    @Resource
     private HuaweiAuthProperties huaweiAuthProperties;
 
     @Override
-    public R<?> upload(MultipartFile file) {
+    public R<ObsBo> upload(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         if (originalFilename == null) {
             return R.failed("获取文件名错误");
@@ -57,9 +57,10 @@ public class ObsServiceImpl implements ObsService {
             String url = putObjectResult.getObjectUrl();
             ObsBo obsBo = new ObsBo();
             obsBo.setFilename(originalFilename);
-            obsBo.setMd5Filename(objectKey);
-            obsBo.setUrl(url);
+            obsBo.setMd5Filename(putObjectResult.getObjectKey());
+            obsBo.setUrl(url.replace("https://esfm.obs.cn-south-1.myhuaweicloud.com:443","http://obs.zf-ap.com"));
             return R.ok(obsBo);
+
         } catch (IOException e) {
             e.printStackTrace();
             return R.failed("上传图片失败");
